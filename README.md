@@ -1,4 +1,4 @@
-# A simple server for working with Gemini API
+# A simple server for working with OpenAI's Chat Completions API (compatible with most LLMs)
 
 This project provides a simple server for Gemini API requests, allowing you to manage API requests and responses, and get the chat history.
 
