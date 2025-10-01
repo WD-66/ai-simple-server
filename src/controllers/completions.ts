@@ -21,13 +21,14 @@ export const createSimpleChatCompletion: RequestHandler<
   IncomingPrompt
 > = async (req, res) => {
   const { prompt } = req.body;
-  // console.log(process.env.NODE_ENV);
+
   const client = new OpenAI({
     apiKey: process.env.AI_API_KEY,
     baseURL: process.env?.AI_URL
   });
 
   messages.push({ role: 'user', content: prompt });
+
   const completion = await client.chat.completions.create({
     model: process.env.AI_MODEL || 'gemini-2.0-flash',
     messages
