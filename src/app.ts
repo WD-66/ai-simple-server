@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import '#db';
 import { completionsRouter } from '#routes';
 import { errorHandler, notFoundHandler } from '#middlewares';
@@ -6,7 +7,7 @@ import { errorHandler, notFoundHandler } from '#middlewares';
 const app = express();
 const port = process.env.PORT || '5050';
 
-app.use(express.json());
+app.use(cors({ origin: '*' }), express.json());
 
 app.use('/ai', completionsRouter);
 app.use('*splat', notFoundHandler);

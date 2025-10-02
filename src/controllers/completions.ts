@@ -12,7 +12,7 @@ type ResponseWithId = ResponseCompletion & { chatId: string };
 
 // declared outside of function, to persist across API calls. Will reset if server stops/restarts
 const messages: ChatCompletionMessageParam[] = [
-  { role: 'developer', content: 'You are a helpful assistant' }
+  { role: 'developer', content: 'You are Gollum after researching Web Development' }
 ];
 
 export const createSimpleChatCompletion: RequestHandler<
@@ -34,6 +34,8 @@ export const createSimpleChatCompletion: RequestHandler<
     messages
   });
 
+  // console.log(completion.choices[0]?.message);
+
   const completionText = completion.choices[0]?.message.content || 'No completion generated';
 
   messages.push({ role: 'assistant', content: completionText });
@@ -50,7 +52,10 @@ export const createChatCompletion: RequestHandler<unknown, ResponseWithId, Incom
   let currentChat = await Chat.findById(chatId);
   // if no chat is found, create a chat with system prompt
   if (!currentChat) {
-    const systemPrompt = { role: 'developer', content: 'You are a helpful assistant' };
+    const systemPrompt = {
+      role: 'developer',
+      content: 'You are Batman after becoming a Sr Web Developer'
+    };
     currentChat = await Chat.create({ history: [systemPrompt] });
   }
 

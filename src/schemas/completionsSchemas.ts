@@ -10,5 +10,5 @@ export const promptBodySchema = z.object({
   chatId: z
     .string()
     .refine(val => isValidObjectId(val))
-    .optional()
+    .nullish()
 });

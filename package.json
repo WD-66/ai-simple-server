@@ -37,6 +37,7 @@
     "start": "node --env-file=.env.production.local dist/app.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "mongoose": "^8.16.5",
     "openai": "^5.12.2",
