@@ -1,10 +1,10 @@
 import type { RequestHandler } from 'express';
 import type { ChatCompletionMessageParam } from 'openai/resources';
-import OpenAI from 'openai';
 import type { z } from 'zod';
 import type { promptBodySchema } from '#schemas';
+import OpenAI from 'openai';
+import { isValidObjectId } from 'mongoose';
 import { Chat } from '#models';
-import type { Types } from 'mongoose';
 
 type IncomingPrompt = z.infer<typeof promptBodySchema>;
 type ResponseCompletion = { completion: string };
@@ -79,4 +79,16 @@ export const createChatCompletion: RequestHandler<unknown, ResponseWithId, Incom
   await currentChat.save();
 
   res.json({ completion: completionText, chatId: currentChat._id.toString() });
+};
+
+export const getChatHistory: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+
+  if (!isValidObjectId(id)) throw new Error('Invalid id', { cause: { status: 400 } });
+
+  const chat = await Chat.findById(id);
+
+  if (!chat) throw new Error('Chat not found', { cause: { status: 404 } });
+
+  res.json(chat);
 };

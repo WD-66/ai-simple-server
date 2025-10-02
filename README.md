@@ -7,12 +7,13 @@ This project provides a simple server for Gemini API requests, allowing you to m
 - Fork and Clone this project
 
 - Install dependencies:
+  - Note we are using Zod v3 for compatibility with structured outputs
 
 ```bash
 npm install
 ```
 
-### Get a AI API Key
+### Get an LLM API Key
 
 This API is compatible with OpenAI, Gemini, and Anthropic API keys
 
@@ -37,10 +38,12 @@ npm run dev
 
 Currently, this API supports
 
-- Simple Chat: `POST` `/simple-chat`
+- Simple Chat: `POST` `/ai/simple-chat`
   - A basic implementation, holds the chat history in memory
-- Chat: `POST` `/chat`
+- Chat: `POST` `/ai/chat`
   - Chat history is stored in a MongoDB database
+- Get Chat History: `GET` `/ai/history/:id`
+  - Get full chat history from database
 
 ## Sample request
 
@@ -55,14 +58,14 @@ Currently, this API supports
 
 ## Server setup checklist
 
-### `POST` `/simple-chat`
+### `POST` `/ai/simple-chat`
 
 - Make a request to this endpoint
 - Look at the `createSimpleChatCompletion` function in `controllers/completions.ts`
 - Update the `content` of the `developer` message to change the "voice" of the AI assistant
 - Note the structure of the `messages` variable
 
-### `POST` `/chat`
+### `POST` `/ai/chat`
 
 - Make a request to this endpoint
 - Note the shape of the `Chat` model found in `/models/Chat.ts`
@@ -70,3 +73,8 @@ Currently, this API supports
 - Create a chat, and include the `chatId` in the body of subsequent requests
 - Open Mongo Compass, and see what gets stored when you save a chat
 - Make note of the additional comments
+
+### `GET` `/ai/history/:id`
+
+- Make a request to this endpoint, and take note of the structure of the body
+- Look closely at how the objects in the `history` are structured.

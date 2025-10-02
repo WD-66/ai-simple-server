@@ -4,7 +4,7 @@ import { completionsRouter } from '#routes';
 import { errorHandler, notFoundHandler } from '#middlewares';
 
 const app = express();
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || '5050';
 
 app.use(express.json());
 

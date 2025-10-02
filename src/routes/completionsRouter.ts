@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { createSimpleChatCompletion, createChatCompletion } from '#controllers';
+import { createSimpleChatCompletion, createChatCompletion, getChatHistory } from '#controllers';
 import { validateBodyZod } from '#middlewares';
 import { promptBodySchema } from '#schemas';
 
 const completionsRouter = Router();
-completionsRouter.use(validateBodyZod(promptBodySchema));
+completionsRouter.get('/history/:id', getChatHistory);
 
+completionsRouter.use(validateBodyZod(promptBodySchema));
 completionsRouter.post('/simple-chat', createSimpleChatCompletion);
 completionsRouter.post('/chat', createChatCompletion);
 
